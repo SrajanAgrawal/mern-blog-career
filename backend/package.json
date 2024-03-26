@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "sakshi": "nodemon src/index.js",
+    "dev": "nodemon src/index.js",
     "start": "node src/index.js"
   },
   "keywords": [
@@ -15,6 +15,7 @@
   "author": "Srajan Agrawal",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "express": "^4.19.1",
     "mongoose": "^8.2.3",
