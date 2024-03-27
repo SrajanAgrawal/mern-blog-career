@@ -1,19 +1,12 @@
 import Router from "express";
-import { registerUser } from "../controllers/user.controllers.js";
+import { registerUser, loginUser } from "../controllers/user.controllers.js";
 
 const router = Router();
-// import {getInformationAboutUser} from "../controllers/user.controllers.js"
-
-
-// pre -> /api/user/info
-router.get("/info", (req,res) => {
-    res.send("/api/user/info")
-});
 
 // for registering the user
 router.post("/register", registerUser)
-
-// router.route("/register").post(registerUser);
+// for login the user
+router.route("/login").post(loginUser)
 
 
 export default router;
