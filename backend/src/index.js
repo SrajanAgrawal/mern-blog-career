@@ -1,7 +1,8 @@
 // import express from "express";
 
-import {app} from "./app.js"
+import { app } from "./app.js"
 import DBConnect from "./db/index.js";
+
 
 import dotenv from "dotenv"
 
@@ -11,15 +12,15 @@ const port = process.env.PORT || 3000;
 
 
 // check the DB connection
- DBConnect().then(() => {
-    app.listen(port, () => {
-        console.log(`Server is listening on port ${port}`);
-    
-    })
-    console.log("Db is successfully connected");
- }).catch((err) => {
-    console.log("Db connection error" + err);
- })
+DBConnect().then(() => {
+   app.listen(port, () => {
+      console.log(`Server is listening on port ${port}`);
+
+   })
+   console.log("Db is successfully connected");
+}).catch((err) => {
+   console.log("Db connection error" + err);
+})
 
 
 
