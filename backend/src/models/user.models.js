@@ -17,6 +17,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    // this is a new field - 30/03/24
+    avatar : {
+        type: String,
+        required: true
+    },
     refreshToken: {
         type: String,
     }
