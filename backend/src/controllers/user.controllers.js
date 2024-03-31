@@ -1,6 +1,7 @@
 import { User } from "../models/user.models.js"
 import { ApiError } from "../utils/ApiError.js"
 import bcrypt from "bcrypt"
+import { uploadFileOnCloudinary } from "../utils/cloudinary.js";
 
 
 const getAccessAndRefreshToken = async function (id) {
@@ -26,6 +27,15 @@ const getAccessAndRefreshToken = async function (id) {
 
 const registerUser = async (req, res) => {
 
+    // check if the image (avatar) is there or not
+    console.log(req.file);
+    if(!req.file) {
+        res.status(400).json({message: "Please upload the image"})
+    }
+
+    const avatarLocalPath = req.file?.path;
+    console.log(avatarLocalPath);
+
     const { username, email, password } = req.body;
 
     // validations
@@ -43,12 +53,21 @@ const registerUser = async (req, res) => {
         return;
     }
 
+    const fileName = req.file.originalname;
+    const response = await uploadFileOnCloudinary(`\public\\temp\\${fileName}`);
+    // const avatar = await uploadOnCloudinary(avatarLocalPath)
+    console.log(response)
 
+    if (!response.url) {
+        res.status(500).json({ message: "Something went wrong while uploading the image" })
+    }
+    
     // to create the user with the given username and password
     await User.create({
         username: username.toLowerCase(),
         email,
-        password
+        password,
+        avatar: response.url
     }).then((result) => {
         const user = result
         res.status(201).json({ data: user, message: "User created Successfully" })
@@ -61,6 +80,7 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
     // fetch the req body and take out the email, password
     const { email, password } = req.body;
+    console.log(email);
     console.log(password);
     // validate if all the fields are there or not
     if (!(email && password)) {
