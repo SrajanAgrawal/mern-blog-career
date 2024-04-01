@@ -1,10 +1,17 @@
 import { Navbar, Dropdown, Avatar } from "flowbite-react"
-import {useState} from 'react'
+import { useEffect, useState } from 'react'
 
-const Header = () => {
+const Header = ({ user }) => {
     const [isLoggedin, setIsLoggedin] = useState(false)
 
-    const handleSignOut = () =>{
+    useEffect(() => {
+        if (user) {
+            setIsLoggedin(true)
+        }
+    }, [user])
+
+    const handleSignOut = () => {
+        // sign out api call
         setIsLoggedin(false)
     }
 
@@ -16,27 +23,27 @@ const Header = () => {
                     <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Latest Tech Blogs</span>
                 </Navbar.Brand>
                 <div className="flex md:order-2">
-                {
-                    isLoggedin ?
-                    (<Dropdown
-                        arrowIcon={false}
-                        inline
-                        label={
-                            <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
-                        }
-                    >
-                        <Dropdown.Header>
-                            <span className="block text-sm">Bonnie Green</span>
-                            <span className="block truncate text-sm font-medium">name@flowbite.com</span>
-                        </Dropdown.Header>
-                        <Dropdown.Item>Dashboard</Dropdown.Item>
-                        <Dropdown.Divider />
-                        <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
-                    </Dropdown>) : 
-                    (
-                        <a href="/login" > Login </a>
-                    )
-                }   
+                    {
+                        isLoggedin ?
+                            (<Dropdown
+                                arrowIcon={false}
+                                inline
+                                label={
+                                    <Avatar alt="User settings" img={user.avatar} rounded />
+                                }
+                            >
+                                <Dropdown.Header>
+                                    <span className="block text-sm">{user.username}</span>
+                                    <span className="block truncate text-sm font-medium">{user.email}</span>
+                                </Dropdown.Header>
+                                <Dropdown.Item>Dashboard</Dropdown.Item>
+                                <Dropdown.Divider />
+                                <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
+                            </Dropdown>) :
+                            (
+                                <a href="/login" > Login </a>
+                            )
+                    }
                     <Navbar.Toggle />
                 </div>
                 <Navbar.Collapse>

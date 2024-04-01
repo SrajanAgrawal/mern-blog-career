@@ -1,8 +1,11 @@
 import { TextInput, Label, Button } from "flowbite-react"
 import { useState } from 'react'
 import axios from "axios"
+import {useNavigate} from "react-router-dom"
 
 const Login = () => {
+
+    const navigate = useNavigate()
 
     const [error, setError] = useState("")
     const [email, setEmail] = useState("")
@@ -23,7 +26,9 @@ const Login = () => {
             // main login (api call to login user)
             await axios.post("http://localhost:8000/api/user/login", user).then((res) => {
                 console.log(res.data)
-                setError(res.message)
+                setError(res.data.message)
+                // navigate("/")
+                window.location.href = "/"
 
             }).catch((err) => {
                 console.log(err)
