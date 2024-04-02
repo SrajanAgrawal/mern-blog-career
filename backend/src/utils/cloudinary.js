@@ -21,7 +21,7 @@ const uploadFileOnCloudinary = async (localFilePath) => {
         return response;
 
     } catch (error) {
-        // console.log(error);
+        console.log(error);
         // delete or unlink the file you have uploaded on your server.
         fs.unlinkSync(localFilePath); // public/temp/rest.jpg
         return null;

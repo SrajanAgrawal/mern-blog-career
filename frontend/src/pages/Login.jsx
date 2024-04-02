@@ -2,8 +2,12 @@ import { TextInput, Label, Button } from "flowbite-react"
 import { useState } from 'react'
 import axios from "axios"
 import {useNavigate} from "react-router-dom"
+import {useDispatch} from "react-redux"
+import {saveUserState} from "../redux/user/userSlicer.js"
 
 const Login = () => {
+
+    const dispatch = useDispatch();
 
     const navigate = useNavigate()
 
@@ -27,8 +31,10 @@ const Login = () => {
             await axios.post("http://localhost:8000/api/user/login", user).then((res) => {
                 console.log(res.data)
                 setError(res.data.message)
-                // navigate("/")
-                window.location.href = "/"
+                // to dispatch the global state
+                dispatch(saveUserState(res.data.data))
+                navigate("/")
+                // window.location.href = "/"
 
             }).catch((err) => {
                 console.log(err)
