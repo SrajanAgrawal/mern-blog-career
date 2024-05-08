@@ -1,0 +1,1 @@
+export const baseUrl = 'https://mern-blog-career.onrender.com'

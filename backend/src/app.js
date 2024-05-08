@@ -25,6 +25,9 @@ import postRouter from "./routes/post.routes.js"
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/post", postRouter)
 
+app.get("/", (req,res) => {
+    res.send("Welcome to the backend server")
+})
 
 
 export  {app};

@@ -4,6 +4,7 @@ import axios from "axios"
 import {useNavigate} from "react-router-dom"
 import {useDispatch} from "react-redux"
 import {saveUserState} from "../redux/user/userSlicer.js"
+import { baseUrl } from "../constants/baseUrl.js"
 
 const Login = () => {
 
@@ -28,7 +29,7 @@ const Login = () => {
             setError("Loading...")
             axios.defaults.withCredentials = true;
             // main login (api call to login user)
-            await axios.post("http://localhost:8000/api/user/login", user).then((res) => {
+            await axios.post(`${baseUrl}/api/user/login`, user).then((res) => {
                 console.log(res.data)
                 setError(res.data.message)
                 // to dispatch the global state

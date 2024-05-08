@@ -2,6 +2,7 @@ import { Label, FileInput, TextInput } from "flowbite-react";
 import { useState } from "react";
 import {useNavigate} from "react-router-dom"
 import axios from "axios";
+import { baseUrl } from "../constants/baseUrl";
 
 const Register = () => {
     const navigate = useNavigate()
@@ -37,7 +38,7 @@ const Register = () => {
                 },
               };
 
-            const response = await axios.post('http://localhost:8000/api/user/register', formData, config);
+            const response = await axios.post(`${baseUrl}/api/user/register`, formData, config);
             console.log('API Response:', response.data);
             setError(response.data.messsage + "Loading.....")
 
